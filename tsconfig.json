@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "ES6",
+    "sourceMap": true,
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "esModuleInterop": true
+
+  },
+  "references": [
+    {
+      "path": "packages/svc-config"
+    },
+    {
+      "path": "packages/svc-data-model"
+    }
+  ]
+}
+

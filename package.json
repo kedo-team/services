@@ -1,0 +1,20 @@
+{
+  "name": "@kedo-team/services",
+  "license": "Commecrial",
+  "packageManager": "yarn@3.2.2",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@nestjs/cli": "^9.0.0",
+    "typescript": "^4.7.4"
+  },
+  "scripts": {
+    "svc-model": "yarn workspace @kedo-team/svc-data-model",
+    "svc-config": "yarn workspace @kedo-team/svc-config",
+    "svc-get-ext-data": "yarn workspace @kedo-team/svc-get-ext-data",
+    "svc-sync": "yarn workspace @kedo-team/svc-sync",
+    "svc-mappings": "yarn workspace @kedo-team/svc-mappings",
+    "svc-client": "yarn workspace @kedo-team/util-svc-client"
+  }
+}
