@@ -10,7 +10,11 @@
   },
   "dependencies": {
     "@kedo-team/svc-config": "workspace:^",
-    "@nestjs/microservices": "^9.0.5"
+    "@nestjs/common": "^9.0.0",
+    "@nestjs/core": "^9.0.0",
+    "@nestjs/microservices": "^9.0.5",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.5.6"
   },
   "devDependencies": {
     "@types/node": "^18.6.1",

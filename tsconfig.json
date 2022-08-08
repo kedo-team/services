@@ -1,33 +1,56 @@
 {
   "compilerOptions": {
-    "composite": true,
     "module": "commonjs",
     "moduleResolution": "node",
+    "target": "ES6",
+    "esModuleInterop": true,
+
+    "composite": true,
     "declaration": true,
-    "removeComments": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    // it's hard to get to work TS in monorepo with imports like @blahblah/something
+    //  usefull link: https://github.com/stereobooster/typescript-monorepo
+    "baseUrl": ".",
+    "paths": {
+      "@kedo-team/*":[ "packages/*/src"]
+    },
+
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES6",
-    "sourceMap": true,
-    "baseUrl": "./",
-    "incremental": true,
-    "skipLibCheck": true,
-    "strictNullChecks": false,
-    "noImplicitAny": false,
-    "strictBindCallApply": false,
-    "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false,
-    "esModuleInterop": true
 
+    "strictNullChecks": true,
+    "noImplicitAny": false,
+    "noImplicitThis": true,
+    "strictBindCallApply": true,
+    "removeComments": true,
+    "strictPropertyInitialization": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+
+    "alwaysStrict": true,
+    "preserveConstEnums": true,
+    "newLine": "lf",
   },
   "references": [
     {
-      "path": "packages/svc-config"
+      "path": "packages/util-pg-provider",
+    },
+    {
+      "path": "packages/util-nestjs",
+    },
+    {
+      "path": "packages/svc-config",
     },
     {
       "path": "packages/svc-data-model"
-    }
-  ]
+    },
+  ],
+  // without this in root dir causes ts double-compilation
+  // check it: https://www.typescriptlang.org/docs/handbook/project-references.html#overall-structure
+  // that's the reason why we have to set "include" pattern in every underlying package
+  "files": []
 }
-

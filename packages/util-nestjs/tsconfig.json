@@ -1,13 +1,16 @@
 {
   "extends": "../../tsconfig.json",
+  "include": [
+    "src",
+  ],
   "compilerOptions": {
-    "moduleResolution": "node",
+    "rootDir": "src",
+    "outDir": "dist",
     "composite": true,
-    "module": "commonjs",
-    "declaration": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "ES6",
-  }
+  },
+  "references": [
+    {
+      "path": "../svc-config"
+    }
+  ]
 }

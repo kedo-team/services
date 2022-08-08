@@ -1,7 +1,9 @@
 {
+  "extends": "../../tsconfig.json",
+  "include": [
+    "src/**/*",
+  ],
   "compilerOptions": {
-    "moduleResolution": "node",
     "composite": true,
-    "experimentalDecorators": true
-  }
+  },
 }

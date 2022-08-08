@@ -5,29 +5,25 @@ import { MessagePattern, EventPattern } from '@nestjs/microservices'
 const logger = new Logger('Controller Factory')
 
 export function getControllerClass(options: ControllerOptions): any {
-    logger.verbose(`constructing class with pattern: '${options.pattern}'`)
 
     @Controller()
     class MicroserviceControllerMessage {
-      // JobRunner has to resolve with nestjs DI
-      constructor(private runner: JobRunnerBase) { }
 
       @MessagePattern({cmd: options.pattern})
-      async doJob() {
-        logger.verbose(`doing job for '${options.pattern}'`)
-        return this.runner.do()
+      async doJob(payload?: any) {
+        logger.verbose(`doing job for '${options.pattern}' with payload: ${JSON.stringify(payload.payload)}`)
+        // in nestjs input object for message has shape { payload: {} }
+        return options.runner(payload.payload)
       }
     }
 
     @Controller()
     class MicroserviceControllerEvent {
-      // JobRunner has to resolve with nestjs DI
-      constructor(private runner: JobRunnerBase) { }
 
-      @EventPattern(options.pattern)
-      async doJob() {
-        logger.verbose(`doing job for '${options.pattern}'`)
-        return this.runner.do()
+      @EventPattern({cmd: options.pattern})
+      async doJob(payload?: any) {
+        logger.verbose(`doing job for '${options.pattern}' with payload: ${JSON.stringify(payload)}`)
+        return options.runner(payload)
       }
     }
 
@@ -40,12 +36,9 @@ export function getControllerClass(options: ControllerOptions): any {
     }
 }
 
-type ControllerType = 'event' | 'message'
-type ControllerOptions = {
+export type ControllerType = 'event' | 'message'
+export type ControllerOptions = {
     type: ControllerType,
-    pattern: string
-}
-
-export abstract class JobRunnerBase {
-  abstract do(): Promise<any>
+    pattern: string,
+    runner: (...args) => any
 }

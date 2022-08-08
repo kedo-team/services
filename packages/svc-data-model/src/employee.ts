@@ -18,7 +18,3 @@ export interface IExtEmployee {
     extBizunitId: string
     extVersion: string
 }
-
-export interface IEmployeeMapping extends IExtEmployee{
-
-}
