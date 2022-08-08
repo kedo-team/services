@@ -7,7 +7,6 @@
 !.yarn/versions
 
 **/node_modules
-**/tsconfig.tsbuildinfo
 
 packages/**/*.js.map
 packages/**/*.d.ts
