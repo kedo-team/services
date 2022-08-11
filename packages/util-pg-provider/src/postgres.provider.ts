@@ -1,8 +1,5 @@
-import { Injectable } from '@nestjs/common'
 import { Pool } from 'pg'
 
-
-//@Injectable()
 export class PostgresProvider{
     private _pool: Pool;
 

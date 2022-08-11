@@ -1,25 +1,22 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "CommonJS",
     "moduleResolution": "node",
     "target": "ES6",
     "esModuleInterop": true,
-
     "composite": true,
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    // it's hard to get to work TS in monorepo with imports like @blahblah/something
-    //  usefull link: https://github.com/stereobooster/typescript-monorepo
     "baseUrl": ".",
     "paths": {
-      "@kedo-team/*":[ "packages/*/src"]
+      "@kedo-team/*": [
+        "packages/*/src"
+      ],
     },
-
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
-
     "strictNullChecks": true,
     "noImplicitAny": false,
     "noImplicitThis": true,
@@ -30,27 +27,27 @@
     "noUnusedParameters": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-
     "alwaysStrict": true,
     "preserveConstEnums": true,
-    "newLine": "lf",
+    "newLine": "lf"
   },
   "references": [
     {
-      "path": "packages/util-pg-provider",
+      "path": "packages/util-pg-provider"
     },
     {
-      "path": "packages/util-nestjs",
+      "path": "packages/util-nestjs"
     },
     {
-      "path": "packages/svc-config",
+      "path": "packages/svc-config"
     },
     {
       "path": "packages/svc-data-model"
-    },
+    }
   ],
-  // without this in root dir causes ts double-compilation
-  // check it: https://www.typescriptlang.org/docs/handbook/project-references.html#overall-structure
-  // that's the reason why we have to set "include" pattern in every underlying package
-  "files": []
+  "files": [],
+  "ts-node": {
+    "transpileOnly": true,
+    "require": ["tsconfig-paths/register"]
+  },
 }

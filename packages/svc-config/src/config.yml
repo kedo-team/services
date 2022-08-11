@@ -1,0 +1,85 @@
+Services:
+  # COMMON SERVICE TRANSPORT
+  TransportConfig:
+    transport: NATS
+    options:
+      servers:
+        - nats://localhost:4222
+  # MAPPING SERVICE CONFIGURTION
+  Mappings:
+    Bizunits:
+      patterns:
+        getAll:       &mappings-bizunits-getall       get-mappings-bizunits-all
+        resolveExtId: &mappings-bizunits-resolveExtId get-mappings-bizunits-resolve-extId
+        resolveId:    &mappings-bizunits-resolveId    get-mappings-bizunits-resolve-id
+        add:          &mappings-buzunits-add          req-mappings-bizunits-add
+        remove:       &mappings-bizunits-remove       req-mappings-bizunits-remove
+
+    Employees:
+      patterns:
+        getAll:       &mappings-employees-getall       get-mappings-employees-all
+        resolveExtId: &mappings-employees-resolveExtId get-mappings-employees-resolve-extId
+        resolveId:    &mappings-employees-resolveId    get-mappings-employees-resolve-id
+        add:          &mappings-employees-add          req-mappings-employees-add
+        remove:       &mappings-employees-remove       req-mappings-employees-remove
+
+  # ETERNAL DATA SERVICE CONFIG
+  ExternalDataSources:
+    Employees:
+      # this is message service will be listen to
+      eventPattern: &ext-employees get-ext-employees
+      endpoint: ''
+      # transform is JSONata expression. It should transform input of external services into internal IExtEntity data format
+      # JSONata debugger: https://try.jsonata.org/
+      transform: >
+        $distinct(
+          value[ТекущаяОрганизация_Key = '781a419b-7a70-11e2-9362-001b11b25590'][].{
+              "extId":         ФизическоеЛицо.Ref_Key,
+              "extFirstName":  ФизическоеЛицо.Имя,
+              "extLastName":   ФизическоеЛицо.Фамилия,
+              "extMiddleName": ФизическоеЛицо.Отчество,
+              "extBizunutId":  ТекущееПодразделение.Ref_Key,
+              "extJobTitle":   ТекущаяДолжность.Description,
+              "extVersion":    ФизическоеЛицо.DataVersion
+            }
+        )
+    Bizunits:
+      eventPattern: &ext-bizunits get-ext-bizunits
+      endpoint: ''
+      transform: >
+        $distinct(
+          value[ТекущаяОрганизация_Key = '781a419b-7a70-11e2-9362-001b11b25590'][].ТекущееПодразделение[Ref_Key][].{
+            "extId":      Ref_Key,
+            "extParentId":   Parent_Key = "00000000-0000-0000-0000-000000000000" ? null : Parent_Key,
+            "extTitle":   Description,
+            "extVersion": DataVersion
+          }
+        )
+
+# SYNC SERVICE CONFIG
+  Sync:
+    StorageConfig:
+      host: 127.0.0.1
+      port: 5432
+      database: kedo
+      user: root
+      password: root
+    Bizunits:
+      query: SELECT * FROM app_private.insert_update_bizunit($1)
+      patterns:
+        listen: req-sync-bizunits
+        getExtData:    *ext-bizunits
+        getMappings:   *mappings-bizunits-getall
+        addMapping:    *mappings-buzunits-add
+        removeMapping: *mappings-bizunits-remove
+        resolveExtId:  *mappings-bizunits-resolveExtId
+    Employees:
+      query: SELECT * FROM app_private.insert_update_employee($1)
+      patterns:
+        listen: req-sync-employees
+        getExtData:    *ext-employees
+        getMappings:   *mappings-employees-getall
+        addMapping:    *mappings-employees-add
+        removeMapping: *mappings-employees-remove
+        resolveExtId:  *mappings-employees-resolveExtId
+      eventPattern: req-sync-employees
