@@ -1,32 +1,40 @@
 import type { IExternalDataSourceConfig } from '@kedo-team/svc-config'
-import { DynamicModule, Module, Logger } from '@nestjs/common'
-import { getControllerClass } from '@kedo-team/util-nestjs'
+import { DynamicModule, Module } from '@nestjs/common'
+import { generateNestController, JobRunner } from '@kedo-team/util-nestjs'
 import { MockEmployeeExtDataSource } from './data-sources/mock-employees-data-source'
 import { ExtDataService } from './ext-data.service'
+import { ExternalDataSource } from './data-sources/ExternalDataSource'
+import { TRANSFORM_TOKEN } from './tokens'
 
 export function getDynamicModule(): any {
-
   @Module({})
   class ExtDataServiceFactory {
     static register(cfg: IExternalDataSourceConfig): DynamicModule {
-      const logger = new Logger('Module Factory')
-      logger.verbose('creating module with config: ')
-      logger.verbose(cfg)
 
-      const dataSource  = new MockEmployeeExtDataSource()
-      const dataService = new ExtDataService(dataSource, cfg.transform)
-
-      const ControllerClass = getControllerClass({
+      const ControllerClass = generateNestController({
         type: 'message',
         pattern: cfg.eventPattern,
-        runner: dataService.do.bind(dataService)
       })
 
       return {
-      module: ExtDataServiceFactory,
-      controllers: [
-        ControllerClass
-      ]
+        module: ExtDataServiceFactory,
+        controllers: [
+          ControllerClass
+        ],
+        providers: [
+          {
+            provide: JobRunner,
+            useClass: ExtDataService
+          },
+          {
+            provide: ExternalDataSource,
+            useClass: MockEmployeeExtDataSource
+          },
+          {
+            provide: TRANSFORM_TOKEN,
+            useValue: cfg.transform
+          }
+        ],
       }
     }
   }

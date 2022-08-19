@@ -2,7 +2,7 @@ import type { ISyncServiceConfig, ISyncServiceStorageConfig } from '@kedo-team/s
 import type { IExtEntity, IKedoEntity } from '@kedo-team/svc-data-model'
 import type { ClientProxyWrapper } from '@kedo-team/util-nestjs'
 
-export type KedoEntityTranslator<T extends IExtEntity, U extends IKedoEntity> = (ent: T, client: ClientProxyWrapper) => Promise<U>
+export type KedoEntityTranslator<T extends IExtEntity, U extends IKedoEntity> = (ent: T) => Promise<U>
 export type IteratorBuilder<T> = (entities: T[]) => IterableIterator<T>
 
 export interface IDynamicModuleOptions<T extends IExtEntity, U extends IKedoEntity> {

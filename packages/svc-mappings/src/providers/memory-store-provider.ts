@@ -17,6 +17,7 @@ export class MemoryStoreProvider<T extends IMapping> implements IMappingStorageP
     if (this._mappings.has(extId)) {
       return this._mappings.get(extId)!.id
     }
+    console.log('failed to resolve return nothing')
     return undefined
   }
 

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@kedo-team/svc-config": "workspace:^",
+    "@kedo-team/tracer": "workspace:^",
     "@nestjs/common": "^9.0.0",
     "@nestjs/core": "^9.0.0",
     "@nestjs/microservices": "^9.0.5",

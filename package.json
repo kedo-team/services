@@ -16,6 +16,7 @@
     "svc-sync": "yarn workspace @kedo-team/svc-sync",
     "svc-mappings": "yarn workspace @kedo-team/svc-mappings",
     "util-svc-client": "yarn workspace @kedo-team/util-svc-client",
-    "util-nestjs": "yarn workspace @kedo-team/util-nestjs"
+    "util-nestjs": "yarn workspace @kedo-team/util-nestjs",
+    "tracer": "yarn workspace @kedo-team/tracer"
   }
 }

@@ -1,20 +1,43 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Inject, Logger } from '@nestjs/common'
 import jsonata from 'jsonata'
-import { IExternalDataSource } from './data-sources/IExternalDataSource'
+import { ExternalDataSource } from './data-sources/ExternalDataSource'
+import { JobRunner } from '@kedo-team/util-nestjs'
+import { TRANSFORM_TOKEN } from './tokens'
+import { trace } from '@kedo-team/tracer'
 
 @Injectable()
-export class ExtDataService {
-    constructor(private dataSource: IExternalDataSource,
-                private transform: string) { }
+export class ExtDataService extends JobRunner {
+  constructor(
+              private dataSource: ExternalDataSource,
+              @Inject(TRANSFORM_TOKEN)
+              private transform: string,
+              ) { super() }
 
-    //private logger = new Logger('ExtDataService')
+  private readonly expression = jsonata(this.transform)
+  private readonly logger = new Logger(ExtDataService.name)
 
-    private expression = jsonata(this.transform)
+  @trace
+  async run() {
 
-    async do() {
-        const rawData = await this.dataSource.getData()
-        Object.freeze(rawData)
-        const result = this.expression.evaluate(rawData)
-        return result
-    }
+    let rawData = await this.getExternalData(this.dataSource)
+    this.logger.log('we need to get to jaeger')
+
+    //return rawData
+    //Object.freeze(rawData)
+
+    const result = await this.transformResults(rawData)
+    return result
+  }
+
+  @trace
+  private async getExternalData(dataSource: ExternalDataSource): Promise<unknown> {
+    return dataSource.getData()
+  }
+
+  @trace
+  private async transformResults(rawData): Promise<unknown> {
+    this.logger.warn('this is a warning')
+    return this.expression.evaluate(rawData)
+  }
 }
+

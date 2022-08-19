@@ -1,0 +1,52 @@
+import { Controller, Logger } from '@nestjs/common'
+import { MessagePattern, EventPattern } from '@nestjs/microservices'
+import { Tracer } from '@kedo-team/tracer'
+
+const logger = new Logger('Controller Factory')
+
+export function getControllerClass(options: ControllerOptions): any {
+
+    @Controller()
+    class MicroserviceControllerMessage {
+      constructor(private jobRunner: JobRunner, private tracer: Tracer) {}
+
+      @MessagePattern({cmd: options.pattern})
+      async doJob(payload?: any) {
+        let taskResult;
+        this.tracer.traceTask(options.pattern, ()=>{
+          //logger('start task')
+          taskResult = options.runner(payload.payload)
+          //logger('end task')
+        })
+        return taskResult
+      }
+    }
+
+    @Controller()
+    class MicroserviceControllerEvent {
+      @EventPattern({cmd: options.pattern})
+      async doJob(payload?: any) {
+        logger.verbose(`doing job for '${options.pattern}' with payload: ${JSON.stringify(payload)}`)
+        return options.runner(payload)
+      }
+    }
+
+    logger.verbose(`created '${options.type}' controller with pattern '${options.pattern}'`)
+
+    switch (options.type) {
+      case 'message': return MicroserviceControllerMessage
+      case 'event': return MicroserviceControllerEvent
+      default: throw new Error(`Unknown microservice controller type '${options.type}'`)
+    }
+}
+
+export type ControllerType = 'event' | 'message'
+export type ControllerOptions = {
+    type: ControllerType,
+    pattern: string,
+    runner: (...args) => any
+}
+
+export abstract class JobRunner {
+  abstract run()
+}

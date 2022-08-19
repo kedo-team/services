@@ -1,29 +1,28 @@
-import { Controller, Logger } from '@nestjs/common'
+import { Controller, Injectable, Logger } from '@nestjs/common'
 import { MessagePattern, EventPattern } from '@nestjs/microservices'
-
+import { trace } from '@kedo-team/tracer'
 
 const logger = new Logger('Controller Factory')
 
-export function getControllerClass(options: ControllerOptions): any {
+export function generateNestController(options: ControllerOptions): any {
+  @Controller()
+  class MicroserviceControllerMessage {
+    constructor(private jobRunner: JobRunner) {}
 
-    @Controller()
-    class MicroserviceControllerMessage {
-
-      @MessagePattern({cmd: options.pattern})
-      async doJob(payload?: any) {
-        logger.verbose(`doing job for '${options.pattern}' with payload: ${JSON.stringify(payload.payload)}`)
-        // in nestjs input object for message has shape { payload: {} }
-        return options.runner(payload.payload)
-      }
+    @MessagePattern({cmd: options.pattern})
+    //@trace()
+    async doJob(payload?: any) {
+      return this.jobRunner.run(payload.payload)
     }
+  }
 
     @Controller()
     class MicroserviceControllerEvent {
+      constructor(private jobRunner: JobRunner) {}
 
       @EventPattern({cmd: options.pattern})
       async doJob(payload?: any) {
-        logger.verbose(`doing job for '${options.pattern}' with payload: ${JSON.stringify(payload)}`)
-        return options.runner(payload)
+        return this.jobRunner.run(payload.payload)
       }
     }
 
@@ -40,5 +39,10 @@ export type ControllerType = 'event' | 'message'
 export type ControllerOptions = {
     type: ControllerType,
     pattern: string,
-    runner: (...args) => any
+    runner?: (...args) => any
+}
+
+@Injectable()
+export abstract class JobRunner {
+  abstract run(payload: any): Promise<any>
 }

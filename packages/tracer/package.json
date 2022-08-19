@@ -1,0 +1,23 @@
+{
+  "name": "@kedo-team/tracer",
+  "version": "0.0.1",
+  "description": "tracer",
+  "author": "Anton V. Tolkachev",
+  "private": true,
+  "license": "Commecrial",
+  "scripts": {
+    "build": "tsc --build"
+  },
+  "devDependencies": {
+    "ts-node": "^10.0.0",
+    "tsconfig-paths": "^4.1.0",
+    "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "@opentelemetry/api": "^1.1.0",
+    "@opentelemetry/auto-instrumentations-node": "^0.31.2",
+    "@opentelemetry/exporter-jaeger": "^1.5.0",
+    "@opentelemetry/sdk-node": "^0.31.0",
+    "winston-transport": "^4.5.0"
+  }
+}

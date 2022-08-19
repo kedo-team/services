@@ -34,7 +34,8 @@ export class SyncService<TExtEntity extends IExtEntity, TMapping extends IMappin
         // }
 
         for (let entity of newEntities) {
-            const newKedoEntity: TKedoEntity = await this.ext2kedoTranslator(entity, this.serviceClient)
+            const newKedoEntity: TKedoEntity = await this.ext2kedoTranslator(entity)
+            this.logger.verbose(newKedoEntity)
             const storedEntity = await this.storage.addEntity(newKedoEntity)
             const mapping: IMapping = {
                 extId: entity.extId,

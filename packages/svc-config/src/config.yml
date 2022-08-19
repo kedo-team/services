@@ -2,9 +2,11 @@ Services:
   # COMMON SERVICE TRANSPORT
   TransportConfig:
     transport: NATS
+    # NATS specific options: https://github.com/nats-io/nats.js#connect-options
     options:
       servers:
         - nats://localhost:4222
+      maxReconnectAttempts: -1
   # MAPPING SERVICE CONFIGURTION
   Mappings:
     Bizunits:

@@ -4,16 +4,8 @@
     "src",
   ],
   "compilerOptions": {
+    "composite": true,
     "rootDir": "src",
     "outDir": "dist",
-    "composite": true,
-  },
-  "references": [
-    {
-      "path": "../svc-config"
-    },
-    {
-      "path": "../tracer"
-    },
-  ]
+  }
 }
