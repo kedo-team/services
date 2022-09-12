@@ -10,12 +10,15 @@
     "typescript": "^4.7.4"
   },
   "scripts": {
-    "svc-data-model": "yarn workspace @kedo-team/svc-data-model",
     "svc-config": "yarn workspace @kedo-team/svc-config",
+    "svc-data-model": "yarn workspace @kedo-team/svc-data-model",
     "svc-get-ext-data": "yarn workspace @kedo-team/svc-get-ext-data",
-    "svc-sync": "yarn workspace @kedo-team/svc-sync",
     "svc-mappings": "yarn workspace @kedo-team/svc-mappings",
+    "svc-states": "yarn workspace @kedo-team/svc-states",
+    "svc-sync": "yarn workspace @kedo-team/svc-sync",
+    "kv-storage": "yarn workspace @kedo-team/kv-storage",
     "util-svc-client": "yarn workspace @kedo-team/util-svc-client",
+    "util-pg-provider": "yarn workspace @kedo-team/util-pg-provider",
     "util-nestjs": "yarn workspace @kedo-team/util-nestjs",
     "tracer": "yarn workspace @kedo-team/tracer"
   }

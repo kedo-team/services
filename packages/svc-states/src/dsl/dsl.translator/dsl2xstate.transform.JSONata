@@ -1,0 +1,83 @@
+(
+$valid_states := ['СогласованиеРуководителя', 'СогласованиеСотрудника'];
+$is_valid_state := function($v, $k) {
+    $k in $valid_states
+};
+$transform_approvements := function($arg) {
+    $arg ~> $sift($is_valid_state) ~> $each(
+        function($v, $n) {
+            {
+                $n : {
+                    'meta': {
+                        'email': $v.email,
+                        'level': $v.уровень
+                    },
+                    'on': {
+                        'СОГЛАСОВАНА': {
+                            'target': $v.СОГЛАСОВАНА ? $v.СОГЛАСОВАНА : 'ЗаявкаСогласована'
+                        },
+                        'ОТКЛОНЕНА': {
+                            'target': $v.ОТКЛОНЕНА ? $v.ОТКЛОНЕНА : 'ЗаявкаОтклонена'
+                        }
+                    }
+                }
+            }
+        }
+    )
+};
+
+$get_final_approve_states := function() {
+    {
+        'ЗаявкаСогласована': {
+            'type': "final",
+            'entry': ''
+          },
+          'ЗаявкаОтклонена': {
+            'type': "final",
+            'entry': ''
+          }
+    }
+};
+/**********/
+{
+    'id': undefined,
+    'initial': 'idle',
+    'predictableActionArguments': true,
+    'context': {
+        'state':'IN_PROGRESS'
+    },
+    'states': {
+        'idle' : {
+            'on': {
+                'USER_REQUEST': {
+                    'target': 'creating_request'
+                }
+            }
+        },
+        'creating_request': {
+            'on': {
+                'ENTITY_CREATED': { 'target': 'approvement'},
+                'ENTITY_CANCELED': { 'target': 'Ошибка'}
+            }
+        },
+        'approvement': {
+            'initial': $keys($$)[0],
+            'states': $merge([$ ~> $transform_approvements, $get_final_approve_states()]),
+            'onDone': [
+                { 'target': 'ОтправкаВСистемуУчета', 'cond': 'isRequestApproved'},
+                { 'target': 'Отклонена'}
+            ]
+        },
+        'ОтправкаВСистемуУчета': {
+            'type': "final"
+        },
+        'Ошибка': {
+            'type': "final"
+        },
+        'Отклонена': {
+            'type': "final"
+        }
+    }
+};
+
+)

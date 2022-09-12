@@ -4,28 +4,25 @@
     "src",
   ],
   "compilerOptions": {
-    "outDir": "dest",
+    "outDir": "dist",
     "rootDir": "src",
     "types": [
-      "@peeky/test"
-    ],
+      "vitest/importMeta",
+      "node",
+    ]
   },
   "references": [
     {
       "path": "../svc-config"
     },
     {
-      "path": "../svc-data-model"
-    },
-    {
       "path": "../util-nestjs"
     },
     {
-      "path": "../util-pg-provider"
+      "path": "../tracer"
+    },
+    {
+      "path": "../svc-data-model"
     },
   ],
-  "ts-node": {
-    "transpileOnly": true,
-    "require": ["tsconfig-paths/register"]
-  }
 }

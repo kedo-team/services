@@ -29,7 +29,10 @@
     "noFallthroughCasesInSwitch": true,
     "alwaysStrict": true,
     "preserveConstEnums": true,
-    "newLine": "lf"
+    "newLine": "lf",
+    "types": [
+      "vitest/globals"
+    ],
   },
   "references": [
     {

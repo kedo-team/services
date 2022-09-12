@@ -1,0 +1,19 @@
+{
+  "name": "@kedo-team/kv-storage",
+  "version": "0.0.1",
+  "description": "simple key-value storage interface",
+  "author": "",
+  "private": true,
+  "license": "COMMERCIAL",
+  "scripts": {
+    "build": "tsc --build ",
+    "test:ui": "vitest --ui",
+    "test": "vitest"
+  },
+  "devDependencies": {
+    "@types/node": "^18.6.1",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.5",
+    "vitest": "^0.23.1"
+  }
+}

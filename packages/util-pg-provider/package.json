@@ -17,6 +17,8 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
+    "@kedo-team/svc-config": "workspace:^",
+    "@kedo-team/svc-data-model": "workspace:^",
     "pg": "^8.7.3"
   }
 }
