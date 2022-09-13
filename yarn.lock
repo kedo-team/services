@@ -1028,6 +1028,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@kedo-team/config@workspace:^, @kedo-team/config@workspace:packages/config":
+  version: 0.0.0-use.local
+  resolution: "@kedo-team/config@workspace:packages/config"
+  dependencies:
+    "@types/node": ^18.6.1
+    js-yaml: ^4.1.0
+    ts-node: ^10.0.0
+    typescript: ^4.3.5
+  languageName: unknown
+  linkType: soft
+
+"@kedo-team/data-model@workspace:^, @kedo-team/data-model@workspace:packages/data-model":
+  version: 0.0.0-use.local
+  resolution: "@kedo-team/data-model@workspace:packages/data-model"
+  dependencies:
+    "@types/node": ^18.6.1
+    ts-node: ^10.0.0
+    typescript: ^4.3.5
+  languageName: unknown
+  linkType: soft
+
 "@kedo-team/kv-storage@workspace:packages/kv-storage":
   version: 0.0.0-use.local
   resolution: "@kedo-team/kv-storage@workspace:packages/kv-storage"
@@ -1048,33 +1069,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@kedo-team/svc-config@workspace:^, @kedo-team/svc-config@workspace:packages/svc-config":
+"@kedo-team/svc-get-ext-data@workspace:services/svc-get-ext-data":
   version: 0.0.0-use.local
-  resolution: "@kedo-team/svc-config@workspace:packages/svc-config"
+  resolution: "@kedo-team/svc-get-ext-data@workspace:services/svc-get-ext-data"
   dependencies:
-    "@types/node": ^18.6.1
-    js-yaml: ^4.1.0
-    ts-node: ^10.0.0
-    typescript: ^4.3.5
-  languageName: unknown
-  linkType: soft
-
-"@kedo-team/svc-data-model@workspace:^, @kedo-team/svc-data-model@workspace:packages/svc-data-model":
-  version: 0.0.0-use.local
-  resolution: "@kedo-team/svc-data-model@workspace:packages/svc-data-model"
-  dependencies:
-    "@types/node": ^18.6.1
-    ts-node: ^10.0.0
-    typescript: ^4.3.5
-  languageName: unknown
-  linkType: soft
-
-"@kedo-team/svc-get-ext-data@workspace:packages/svc-get-ext-data":
-  version: 0.0.0-use.local
-  resolution: "@kedo-team/svc-get-ext-data@workspace:packages/svc-get-ext-data"
-  dependencies:
-    "@kedo-team/svc-config": "workspace:^"
-    "@kedo-team/svc-data-model": "workspace:^"
+    "@kedo-team/config": "workspace:^"
+    "@kedo-team/data-model": "workspace:^"
     "@kedo-team/tracer": "workspace:^"
     "@kedo-team/util-nestjs": "workspace:^"
     "@nestjs/cli": ^9.0.0
@@ -1108,12 +1108,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@kedo-team/svc-mappings@workspace:packages/svc-mappings":
+"@kedo-team/svc-mappings@workspace:services/svc-mappings":
   version: 0.0.0-use.local
-  resolution: "@kedo-team/svc-mappings@workspace:packages/svc-mappings"
+  resolution: "@kedo-team/svc-mappings@workspace:services/svc-mappings"
   dependencies:
-    "@kedo-team/svc-config": "workspace:^"
-    "@kedo-team/svc-data-model": "workspace:^"
+    "@kedo-team/config": "workspace:^"
+    "@kedo-team/data-model": "workspace:^"
     "@kedo-team/util-nestjs": "workspace:^"
     "@nestjs/cli": ^9.0.0
     "@nestjs/common": ^9.0.0
@@ -1142,12 +1142,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@kedo-team/svc-states@workspace:packages/svc-states":
+"@kedo-team/svc-states@workspace:services/svc-states":
   version: 0.0.0-use.local
-  resolution: "@kedo-team/svc-states@workspace:packages/svc-states"
+  resolution: "@kedo-team/svc-states@workspace:services/svc-states"
   dependencies:
-    "@kedo-team/svc-config": "workspace:^"
-    "@kedo-team/svc-data-model": "workspace:^"
+    "@kedo-team/config": "workspace:^"
+    "@kedo-team/data-model": "workspace:^"
     "@kedo-team/tracer": "workspace:^"
     "@kedo-team/util-nestjs": "workspace:^"
     "@nestjs/cli": ^9.0.0
@@ -1187,12 +1187,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@kedo-team/svc-sync@workspace:packages/svc-sync":
+"@kedo-team/svc-sync@workspace:services/svc-sync":
   version: 0.0.0-use.local
-  resolution: "@kedo-team/svc-sync@workspace:packages/svc-sync"
+  resolution: "@kedo-team/svc-sync@workspace:services/svc-sync"
   dependencies:
-    "@kedo-team/svc-config": "workspace:^"
-    "@kedo-team/svc-data-model": "workspace:^"
+    "@kedo-team/config": "workspace:^"
+    "@kedo-team/data-model": "workspace:^"
     "@kedo-team/util-nestjs": "workspace:^"
     "@kedo-team/util-pg-provider": "workspace:^"
     "@nestjs/cli": ^9.0.0
@@ -1241,7 +1241,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@kedo-team/util-nestjs@workspace:packages/util-nestjs"
   dependencies:
-    "@kedo-team/svc-config": "workspace:^"
+    "@kedo-team/config": "workspace:^"
     "@kedo-team/tracer": "workspace:^"
     "@nestjs/common": ^9.0.0
     "@nestjs/core": ^9.0.0
@@ -1258,8 +1258,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@kedo-team/util-pg-provider@workspace:packages/util-pg-provider"
   dependencies:
-    "@kedo-team/svc-config": "workspace:^"
-    "@kedo-team/svc-data-model": "workspace:^"
+    "@kedo-team/config": "workspace:^"
+    "@kedo-team/data-model": "workspace:^"
     "@peeky/test": ^0.13.5
     "@types/node": ^18.6.1
     pg: ^8.7.3
@@ -1272,7 +1272,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@kedo-team/util-svc-client@workspace:packages/util-svc-client"
   dependencies:
-    "@kedo-team/svc-config": "workspace:^"
+    "@kedo-team/config": "workspace:^"
     "@nestjs/cli": ^9.0.0
     "@nestjs/common": ^9.0.0
     "@nestjs/core": ^9.0.0
@@ -3370,11 +3370,11 @@ __metadata:
   linkType: hard
 
 "@vitest/ui@npm:^0.23.1":
-  version: 0.23.1
-  resolution: "@vitest/ui@npm:0.23.1"
+  version: 0.23.2
+  resolution: "@vitest/ui@npm:0.23.2"
   dependencies:
     sirv: ^2.0.2
-  checksum: efbe20f6e30c0989c25f20d7cdfa444a58e74c34ee0a028338e604c5cc1559fb15077f29bd95d3eb53bb949ccef53a052efc749d26d24022b214acee1fe5dc2c
+  checksum: e04358bbda60e2940ad4a99341441aff3b8990fc975ad434b413a27caeecfc59e75cd934ba553cb787a548f16ad9d952d7de325fe32242c6bb967c2ba6a2e7ba
   languageName: node
   linkType: hard
 
@@ -8858,11 +8858,12 @@ __metadata:
   linkType: hard
 
 "nats@npm:^2.7.1":
-  version: 2.7.1
-  resolution: "nats@npm:2.7.1"
+  version: 2.8.0
+  resolution: "nats@npm:2.8.0"
   dependencies:
-    nkeys.js: ^1.0.0-9
-  checksum: 6022d8b924d947f51d58e25f7790f3b532c26b1dd1ffddf1139c1ac8ab54c2c41ad5423127809f5bbbce54df63adb808a3a1cf5715a4d75f807fafc63ca294ac
+    nkeys.js: 1.0.3
+    web-streams-polyfill: ^3.2.1
+  checksum: daea64b1fc3584fe03203e8fe0d4f1cca8b866be766fc855f3f7f31a236a6048f1648629084b35e552898882aa8d4d9c1b3708eced3ebedf1997e683ff1c2982
   languageName: node
   linkType: hard
 
@@ -8924,7 +8925,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nkeys.js@npm:^1.0.0-9":
+"nkeys.js@npm:1.0.3":
   version: 1.0.3
   resolution: "nkeys.js@npm:1.0.3"
   dependencies:
@@ -11546,6 +11547,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"web-streams-polyfill@npm:^3.2.1":
+  version: 3.2.1
+  resolution: "web-streams-polyfill@npm:3.2.1"
+  checksum: b119c78574b6d65935e35098c2afdcd752b84268e18746606af149e3c424e15621b6f1ff0b42b2676dc012fc4f0d313f964b41a4b5031e525faa03997457da02
+  languageName: node
+  linkType: hard
+
 "webidl-conversions@npm:^3.0.0":
   version: 3.0.1
   resolution: "webidl-conversions@npm:3.0.1"
@@ -11691,9 +11699,10 @@ __metadata:
   linkType: hard
 
 "winston@npm:^3.8.1":
-  version: 3.8.1
-  resolution: "winston@npm:3.8.1"
+  version: 3.8.2
+  resolution: "winston@npm:3.8.2"
   dependencies:
+    "@colors/colors": 1.5.0
     "@dabh/diagnostics": ^2.0.2
     async: ^3.2.3
     is-stream: ^2.0.0
@@ -11704,7 +11713,7 @@ __metadata:
     stack-trace: 0.0.x
     triple-beam: ^1.3.0
     winston-transport: ^4.5.0
-  checksum: 14637222a4239f1ee7e629dbbf0c65161abe95eeb7acd275caf210c5d47d93254fdb007291ea75b5e241d4bb6dd3c29d000bd04ae5420a347711ae7cd0b2da88
+  checksum: f7b901798b92ab9e93c850110bf6e98500e9a0e762b62dab410cf928b2a4145533dfa6d3d2b24f7bf0dc94b53808d5bd28aaaeff9a4b43b89ea4c798cce308ea
   languageName: node
   linkType: hard
 
@@ -11793,9 +11802,9 @@ __metadata:
   linkType: hard
 
 "xstate@npm:^4.33.2":
-  version: 4.33.2
-  resolution: "xstate@npm:4.33.2"
-  checksum: 6e10bcfe66594b3903d34635f7db34388878ab5314c94aa1ece4def97f605f61f8f70fd4ca00de0fd124b465bf8dd7796661d9fdd29a602e144dd31906ee2e26
+  version: 4.33.6
+  resolution: "xstate@npm:4.33.6"
+  checksum: 19fc3038ce116e4e0bf36ee7ba7a198b7fae7fad323d8c6966610cbb0c7414f41d3d2d5768e281edf25b8afa903d9bfb55ab053f627ddd83cf042879c2158ec5
   languageName: node
   linkType: hard
 

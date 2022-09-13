@@ -1,6 +1,6 @@
 import { PostgresProvider } from './postgres.provider'
-import type { IKedoBizUnit } from '@kedo-team/svc-data-model'
-import { getSyncServiceStorageConfig, getSyncServiceConfigForEntity } from '@kedo-team/svc-config'
+import type { IKedoBizUnit } from '@kedo-team/data-model'
+import { getSyncServiceStorageConfig, getSyncServiceConfigForEntity } from '@kedo-team/config'
 
 describe('postgres-provider', () => {
   const dbCfg = getSyncServiceStorageConfig()

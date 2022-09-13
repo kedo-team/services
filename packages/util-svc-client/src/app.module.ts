@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common'
 import { ClientProxyFactory } from '@nestjs/microservices'
 import { AppController } from './app.controller'
-import { getServicesTransportConfig } from '@kedo-team/svc-config'
+import { getServicesTransportConfig } from '@kedo-team/config'
 import { getNestJsMicroserviceTransportConfig } from '@kedo-team/util-nestjs'
 
 @Module({

@@ -1,0 +1,31 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": [
+    "src",
+  ],
+  "compilerOptions": {
+    "outDir": "dest",
+    "rootDir": "src",
+    "types": [
+      "@peeky/test"
+    ],
+  },
+  "references": [
+    {
+      "path": "../../packages/config"
+    },
+    {
+      "path": "../../packages/data-model"
+    },
+    {
+      "path": "../../packages/util-nestjs"
+    },
+    {
+      "path": "../../packages/util-pg-provider"
+    },
+  ],
+  "ts-node": {
+    "transpileOnly": true,
+    "require": ["tsconfig-paths/register"]
+  }
+}

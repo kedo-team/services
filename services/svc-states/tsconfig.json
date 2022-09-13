@@ -1,0 +1,28 @@
+{
+  "extends": "../../tsconfig.json",
+  "include": [
+    "src",
+  ],
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "types": [
+      "vitest/importMeta",
+      "node",
+    ]
+  },
+  "references": [
+    {
+      "path": "../../packages/config"
+    },
+    {
+      "path": "../../packages/util-nestjs"
+    },
+    {
+      "path": "../../packages/tracer"
+    },
+    {
+      "path": "../../packages/data-model"
+    },
+  ],
+}

@@ -4,16 +4,18 @@
     "src",
   ],
   "compilerOptions": {
-    "rootDir": "src",
     "outDir": "dist",
-    "composite": true,
+    "rootDir": "src",
   },
   "references": [
     {
-      "path": "../config"
+      "path": "../../packages/config"
     },
     {
-      "path": "../tracer"
+      "path": "../../packages/util-nestjs"
     },
-  ]
+    {
+      "path": "../../packages/tracer"
+    },
+  ],
 }

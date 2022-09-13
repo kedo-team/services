@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core'
 import { MicroserviceOptions } from '@nestjs/microservices'
 import { getNestJsMicroserviceTransportConfig }from '.'
-import { getServicesTransportConfig }from '@kedo-team/svc-config'
+import { getServicesTransportConfig }from '@kedo-team/config'
 import { LoggerService, Logger } from '@nestjs/common'
 
 /**
